@@ -1,0 +1,21 @@
+git config --global user.name eduardasartorelli
+git config --global user.email eduarda.sartorelli123@gmail.com
+
+
+-- Criar um projeto vazio
+npx create-expo-app@latest DudaShoppingList --template blank
+
+cd DudaShoppingList
+
+--Executar o projet
+npx expo start --tunnel
+
+npx expo install expo-router react-native-safe-area-context react-native-screens expo-linking expo-constants expo-status-bar
+
+--Bibliotecas
+npx expo install expo-router react-native-safe-area-context react-native-screens expo--linking expo-constants expo-status-bar
+
+--Restaurar o projeto apos o clone (no terminal)
+cd DudaShoppingList
+npm i
+
