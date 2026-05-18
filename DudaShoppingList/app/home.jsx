@@ -34,12 +34,15 @@ export default function home() {
                 <View style={styles.footer}>
                     <View style={styles.inputContainer}>
                         <TextInput
-                        color="#fff"
-                        fontSize={18}
-                        placeholder='Digite o nome do produto...'
-                        placeholderTextColor="#aeaeae"
+                            color="#fff"
+                            fontSize={18}
+                            placeholder='Digite o nome do produto...'
+                            placeholderTextColor={"#aeaeae"}
                         />
                     </View>
+                    <TouchableOpacity style={styles.iconContainer} onPress={addProduto} >
+                        <Ionicons name="add" size={36} color="#fff" />
+                    </TouchableOpacity>
                 </View>
 
             </ImageBackground>
@@ -47,4 +50,48 @@ export default function home() {
     )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    header: {
+        padding: 25,
+        flexDirection: 'row',
+        justifyContente: 'space-between',
+        alignItems: 'center',
+        backgroundColor: '#00000000',
+        borderBlockStartRadius: 30,
+        borderBottomEndRadius: 30,
+    },
+    title: {
+        fontSize: 26,
+        fontWeight: '#ffff'
+        color: '#ffff'
+    },
+    footer: {
+        position: 'absolute',
+        bottom: 0,
+        Width: 100%
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 20,
+        backgroundColor: '#00000000',
+        borderTopStartRadius: 30,
+        borderTopEndRadius: 30,
+    },
+    inputContainer: {
+        backgroundColor: '#000',
+        elevation: 40, 
+        flex: 1,
+        height: 50,
+        marginVertical: 20,
+        borderRadius: 30,
+        justifyContent: 'center',
+    },
+    iconContainer: {
+        borderRadius: 25,
+        height: 50,
+        Width: 50,
+        backgroundColor: '#000',
+        elevation: 40,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+})
