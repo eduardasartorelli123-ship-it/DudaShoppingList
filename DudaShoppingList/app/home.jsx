@@ -12,6 +12,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
+import Itemist from '../componets/ItemList';
 
 export default function Home() {
     const [textInput, setTextInput] = useState('');
@@ -53,7 +54,7 @@ export default function Home() {
           data={items}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) =>
-            <Text>{item.name}</Text>
+            <ItemList item={item}/>
         }
         />
 
