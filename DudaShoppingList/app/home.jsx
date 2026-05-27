@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { 
+import {
   Alert,
   FlatList,
   ImageBackground,
@@ -15,22 +15,77 @@ import { useEffect, useState } from 'react';
 import Itemist from '../componets/ItemList';
 
 export default function Home() {
-    const [textInput, setTextInput] = useState('');
-    const [items, setItems] = useState ([]);
-    
+  const [textInput, setTextInput] = useState('');
+  const [items, setItems] = useState([]);
+
+  function addProduto() {
+
+  }
+
+  function markProduto(itemId) {
+    const newItems = items.map((item) => {
+      if (item.id == itemId) {
+        return { ...item, bought: true }
+      }
+      return item;
+    });
+    setItems(newItems);
+  }
+
+  function unmarkProduto(itemId) {
+    const newItems = items.map((item) => {
+      if (item.id == itemId) {
+        return { ...item, bought: false }
+      }
+      return item;
+    });
+    setItems(newItems);
+  }
+
+  function removerProduto(itemId) {
+    Alert.alert('Excluir Produto?',
+      'Confirma a exclusão desse produto?',
+      [
+        {
+          text: 'Sim', onPress: () => { 
+            const newItems = items.filter(item => item.id != itemId);
+            setItems(newItems);
+        },
+        {
+          text: 'Cancelar', style: 'cancel'
+        }
+      ]
+    );
+  } 
+  
+
+   function removerAll() {
+    Alert.alert('Excluir Produto?',
+      'Confirma a exclusão desse produto?',
+      [
+        {
+          text: 'Sim', onPress: () => { setItems([]);}
+        },
+        {
+          text: 'Cancelar', style: 'cancel'
+        }
+      ]
+    );
+  }
+
   function addProduto() {
     console.log(textInput);
-    if (textInput == ''){
-        Alert.alert(
-            'ocorreu um problema :(',
-            'por favor, informe o nome do produto'
-        );
-        return;
+    if (textInput == '') {
+      Alert.alert(
+        'ocorreu um problema :(',
+        'por favor, informe o nome do produto'
+      );
+      return;
     }
     const newItem = {
-        id: Date.now().toString(),
-        name: textInput,
-        bought: false
+      id: Date.now().toString(),
+      name: textInput,
+      bought: false
     };
     setItems([...items, newItem]);
     setTextInput('');
@@ -41,21 +96,27 @@ export default function Home() {
       <ImageBackground
         source={require('../assets/background.jpg')}
         resizeMode='repeat'
-        style={{ flex: 1, justifyContent: 'flex-start'}}
+        style={{ flex: 1, justifyContent: 'flex-start' }}
       >
         <View style={styles.header}>
           <Text style={styles.title}>Lista de Compras</Text>
-          <Ionicons name='trash' size={32} color="#fff"></Ionicons>
+          <Ionicons name='trash' size={32} color="#fff" onPress={removerAll} />
         </View>
 
         {/* Lista de compras */}
         <FlatList
-          contentContainerStyle={{padding: 20, paddingBottom: 100, color:"#fff"}}
+          contentContainerStyle={{ padding: 20, paddingBottom: 100, color: "#fff" }}
           data={items}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) =>
-            <ItemList item={item}/>
-        }
+            <ItemList 
+             item={item}
+             markItem={markProduto}
+             unmarkItem={unmarkProduto}
+             removerItem={removerProduto}
+             
+             />
+          }
         />
 
         <View style={styles.footer}>
