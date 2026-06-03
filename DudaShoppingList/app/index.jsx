@@ -11,7 +11,7 @@ export default function Welcome() {
         />
       </View>
       <View style={styles.content}>
-        <Text style={styles.title}>Anangelo Shopping List</Text>
+        <Text style={styles.title}>Duda Shopping List</Text>
         <text style={styles.text}> monte sua lista de compras e nao esqueça mais o que precisa comprar</text>
         <Link style={styles.button} href={"/home"}>
           <Text style={styles.buttonText}>acessar</Text>

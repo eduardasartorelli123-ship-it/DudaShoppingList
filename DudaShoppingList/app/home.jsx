@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {
+import { 
   Alert,
   FlatList,
   ImageBackground,
@@ -11,15 +11,28 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import { useEffect, useState } from 'react';
-import Itemist from '../componets/ItemList';
+import ItemList from '../components/ItemList';
 
 export default function Home() {
   const [textInput, setTextInput] = useState('');
   const [items, setItems] = useState([]);
 
   function addProduto() {
-
+    // console.log(textInput);
+    if (textInput == '') {
+      Alert.alert(
+        'Ocorreu um problema :(',
+        'Por favor, informe o nome do produto'
+      );
+      return;
+    }
+    const newItem = {
+      id: Date.now().toString(),
+      name: textInput,
+      bought: false
+    };
+    setItems([...items, newItem]);
+    setTextInput('');
   }
 
   function markProduto(itemId) {
@@ -42,29 +55,15 @@ export default function Home() {
     setItems(newItems);
   }
 
-  function removerProduto(itemId) {
+  function removeProduto(itemId) {
     Alert.alert('Excluir Produto?',
-      'Confirma a exclusão desse produto?',
+      'Confirma a exclusão deste Produto?',
       [
         {
-          text: 'Sim', onPress: () => { 
+          text: 'Sim', onPress: () => {
             const newItems = items.filter(item => item.id != itemId);
             setItems(newItems);
-        },
-        {
-          text: 'Cancelar', style: 'cancel'
-        }
-      ]
-    );
-  } 
-  
-
-   function removerAll() {
-    Alert.alert('Excluir Produto?',
-      'Confirma a exclusão desse produto?',
-      [
-        {
-          text: 'Sim', onPress: () => { setItems([]);}
+          }
         },
         {
           text: 'Cancelar', style: 'cancel'
@@ -73,22 +72,18 @@ export default function Home() {
     );
   }
 
-  function addProduto() {
-    console.log(textInput);
-    if (textInput == '') {
-      Alert.alert(
-        'ocorreu um problema :(',
-        'por favor, informe o nome do produto'
-      );
-      return;
-    }
-    const newItem = {
-      id: Date.now().toString(),
-      name: textInput,
-      bought: false
-    };
-    setItems([...items, newItem]);
-    setTextInput('');
+  function removeAll() {
+    Alert.alert('Limpar Lista?',
+      'Confirma a exclusão de todos os produtos?',
+      [
+        {
+          text: 'Sim', onPress: () => { setItems([]); }
+        },
+        {
+          text: 'Cancelar', style: 'cancel'
+        }
+      ]
+    );
   }
 
   return (
@@ -96,26 +91,26 @@ export default function Home() {
       <ImageBackground
         source={require('../assets/background.jpg')}
         resizeMode='repeat'
-        style={{ flex: 1, justifyContent: 'flex-start' }}
+        style={{ flex: 1, justifyContent: 'flex-start'}}
       >
         <View style={styles.header}>
           <Text style={styles.title}>Lista de Compras</Text>
-          <Ionicons name='trash' size={32} color="#fff" onPress={removerAll} />
+          <Ionicons name='trash' size={32} color="#fff" onPress={removeAll} />
         </View>
 
         {/* Lista de compras */}
-        <FlatList
-          contentContainerStyle={{ padding: 20, paddingBottom: 100, color: "#fff" }}
+        <FlatList 
+          contentContainerStyle={{ 
+            padding: 20, paddingBottom: 100, color:'#fff'}}
           data={items}
           keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) =>
-            <ItemList 
-             item={item}
-             markItem={markProduto}
-             unmarkItem={unmarkProduto}
-             removerItem={removerProduto}
-             
-             />
+          renderItem={({ item }) => 
+            <ItemList
+              item={item}
+              markItem={markProduto}
+              unmarkItem={unmarkProduto}
+              removeItem={removeProduto}
+            />
           }
         />
 
@@ -127,7 +122,7 @@ export default function Home() {
               placeholder='Digite o nome do produto...'
               placeholderTextColor="#aeaeae"
               value={textInput}
-              onChange={(text) => setTextInput(text)}
+              onChangeText={(text) => setTextInput(text)}
             />
           </View>
           <TouchableOpacity style={styles.iconContainer} onPress={addProduto}>

@@ -12,22 +12,22 @@ export default function ItemList({ item, markItem, unmarkItem, removeItem }) {
       {!item?.bought ? (
         <TouchableOpacity
           style={styles.actionIcon}
-          onPress={() => markItem{item.id}}
+          onPress={() => markItem(item.id)}
         >
           <Ionicons name='bag-check-outline' size={24} color='#fff' />
         </TouchableOpacity>
       ) : (
         <TouchableOpacity
           style={styles.actionIcon}
-          onPress={() => unmarkItem{item.id}}
+          onPress={() => unmarkItem(item.id)}
         >
           <Ionicons name='bag-remove-outline' size={24} color='#fff' />
         </TouchableOpacity>
       )}
 
       <TouchableOpacity
-        style={[styles.actionIcon]}
-        onPress={() => removeItem{item.id}}
+        style={[styles.actionIcon, { backgroundColor: 'darkred' }]}
+        onPress={() => removeItem(item.id)}
       >
         <Ionicons name='trash-bin-outline' size={24} color='#fff' />
       </TouchableOpacity>
