@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
 import { Link } from 'expo-router';
+import { StyleSheet, Text, View, Image } from 'react-native';
 
 export default function Welcome() {
   return (
@@ -11,13 +11,15 @@ export default function Welcome() {
         />
       </View>
       <View style={styles.content}>
-        <Text style={styles.title}>Duda Shopping List</Text>
-        <text style={styles.text}> monte sua lista de compras e nao esqueça mais o que precisa comprar</text>
+        <Text style={styles.title}>Gallo Shopping List</Text>
+        <Text style={styles.text}>
+          Monte sua lista de compras e não esqueça mais
+          o que precisa comprar ao sair de casa!!!
+        </Text>
         <Link style={styles.button} href={"/home"}>
-          <Text style={styles.buttonText}>acessar</Text>
+          <Text style={styles.buttonText}>Acessar</Text>
         </Link>
       </View>
-
     </View>
   );
 }
@@ -26,7 +28,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000',
-
   },
   containerImage: {
     flex: 2,
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
   },
   avatar: {
     width: 230,
-    heigth: 230,
+    height: 230,
     resizeMode: 'cover',
     borderRadius: 115,
   },
@@ -66,11 +67,9 @@ const styles = StyleSheet.create({
     width: '60%',
     textAlign: 'center',
   },
-
   buttonText: {
     fontSize: 22,
     color: '#fff',
     fontWeight: 'bold'
   }
-
 });
